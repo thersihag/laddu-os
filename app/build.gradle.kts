@@ -1,9 +1,8 @@
 // Path: app/build.gradle.kts
 plugins {
     id("com.android.application")
-    id("kotlin-android") // "org.jetbrains.kotlin.android" ki jagah yeh cloud-friendly dependency use karein
+    id("org.jetbrains.kotlin.android")
 }
-
 
 android {
     namespace = "com.laddu.os.launcher"
@@ -61,5 +60,3 @@ dependencies {
     implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.material:material-icons-extended")
 }
-
-
