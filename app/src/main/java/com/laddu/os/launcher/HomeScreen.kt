@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.*
@@ -18,8 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,8 +47,8 @@ fun HomeScreen(viewModel: LauncherViewModel, theme: LauncherTheme, onOpenSetting
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    AndroidView(factory = { TextClock(it).apply { format12Hour = "hh:mm a"; textSize = 28f; setTextColor(if(theme==LauncherTheme.DARK) 0xFFFFFFFF.toInt() else 0xFF2C1E3A.toInt()) } })
-                    AndroidView(factory = { TextClock(it).apply { format12Hour = "EEEE, MMMM dd"; textSize = 12f; setTextColor(if(theme==LauncherTheme.DARK) 0xAAFFFFFF.toInt() else 0xAA2C1E3A.toInt()) } })
+                    AndroidView(factory = { TextClock(it).apply { format12Hour = "hh:mm a"; textSize = 28f; setTextColor(android.graphics.Color.GRAY) } })
+                    AndroidView(factory = { TextClock(it).apply { format12Hour = "EEEE, MMMM dd"; textSize = 12f; setTextColor(android.graphics.Color.LTGRAY) } })
                 }
                 IconButton(onClick = onOpenSettings) { Icon(Icons.Default.Palette, "Theme", tint = if(theme==LauncherTheme.DARK) Color.White else Color.Black) }
             }
