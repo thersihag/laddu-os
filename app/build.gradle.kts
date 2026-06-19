@@ -35,11 +35,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+        // Coroutines aur contextual parameters ko pipeline execution safe karne ke liye compiler args
+        freeCompilerArgs += listOf("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
+        // Compose Bill of Materials (BOM) 2024 ke sath mapping compatible version
         kotlinCompilerExtensionVersion = "1.5.8"
     }
 }
@@ -50,6 +53,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
 
+    // Stable BOM Configuration mapping
     val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
     implementation(composeBom)
     implementation("androidx.compose.ui:ui")
@@ -58,5 +62,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.animation:animation")
+    
+    // Explicit material icons framework to ensure compilation success
+    implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.compose.material:material-icons-extended")
 }
