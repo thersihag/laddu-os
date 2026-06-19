@@ -20,16 +20,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Validate Gradle Project Configuration
-      run: |
-        if [ ! -f "build.gradle.kts" ]; then
-          echo "Error: Root build.gradle.kts not found!"
-          exit 1
-        fi
+    # Sahi Gradle automation engine set karne ke liye official setup tool
+    - name: Setup Gradle Cloud Engine
+      uses: gradle/actions/setup-gradle@v3
 
-    - name: Build Debug APK via Android CLI
-      run: |
-        gradle assembleDebug --no-daemon --stacktrace
+    - name: Build Debug APK via Managed Gradle
+      run: gradle assembleDebug --stacktrace --no-daemon
 
     - name: Upload Generated APK to Cloud Storage
       uses: actions/upload-artifact@v4
