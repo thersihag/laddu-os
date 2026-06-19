@@ -3,10 +3,11 @@ package com.laddu.os.launcher
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.animation.AnimatedVisibility
+import androidx.animation.fadeIn
+import androidx.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,6 +32,11 @@ class MainActivity : ComponentActivity() {
             val isAppDrawerOpen by viewModel.isAppDrawerOpen.collectAsState()
             var isSettingsOpen by remember { mutableStateOf(false) }
 
+            // Modern Android 14 Back Press Handling inside Jetpack Compose
+            BackHandler(enabled = isAppDrawerOpen) {
+                viewModel.toggleAppDrawer(false)
+            }
+
             LadduOSTheme(theme = currentTheme) {
                 Box(modifier = Modifier.fillMaxSize().background(getWallpaperGradient(currentTheme))) {
                     HomeScreen(viewModel = viewModel, theme = currentTheme, onOpenSettings = { isSettingsOpen = true })
@@ -42,14 +48,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-        }
-    }
-
-    override fun onBackPressed() {
-        if (viewModel.isAppDrawerOpen.value) {
-            viewModel.toggleAppDrawer(false)
-        } else {
-            viewModel.performHapticFeedback()
         }
     }
 
