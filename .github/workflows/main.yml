@@ -9,24 +9,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Yeh official pre-built Android complete virtual machine container hai
+    container:
+      image: mobiledevops/android-sdk-image:34.0.0
 
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    - name: Create Gradle Local Environment Execution
+    - name: Pre-configure Project Files
       run: |
-        gradle wrapper --gradle-version 8.2 --distribution-type minimum
+        echo "sdk.dir=/opt/android-sdk-linux" > local.properties
+        # Yahan cloud engine bina wrapper jhanjhat ke direct environment create karega
 
-    - name: Build Debug Bundle via Local Compilers
+    - name: Compile and Force Build Debug APK
       run: |
-        ./gradlew assembleDebug --no-daemon --stacktrace
+        gradle assembleDebug --no-daemon --stacktrace
 
     - name: Upload Generated APK to Cloud Storage
       uses: actions/upload-artifact@v4
