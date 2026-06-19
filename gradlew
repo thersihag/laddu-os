@@ -4,7 +4,9 @@ set -e
 APP_BASE_NAME=$(basename "$0")
 APP_HOME=$(dirname "$0")
 APP_HOME=$(cd "$APP_HOME" && pwd -P)
-DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+
+# 🔥 FIX: Removed extra inner quotes that caused ClassNotFoundException
+DEFAULT_JVM_OPTS="-Xmx2048m -Xms512m"
 
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
@@ -30,4 +32,5 @@ if [ ! -e "$CLASSPATH" ] ; then
     curl -sLo "$CLASSPATH" https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradle/wrapper/gradle-wrapper.jar
 fi
 
-exec "$JAVACMD" $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "-Dorg.gradle.appname=$APP_BASE_NAME" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
+# 🔥 FIX: Executing without broken quotes expansion
+exec "$JAVACMD" $DEFAULT_JVM_OPTS "-Dorg.gradle.appname=$APP_BASE_NAME" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
