@@ -40,6 +40,7 @@ android {
         compose = true
     }
     composeOptions {
+        // 🔥 FIX: 1.5.8 extension standard matching Kotlin 1.9.22 aur dynamic Compose BOM ke sath stable hai
         kotlinCompilerExtensionVersion = "1.5.8"
     }
 }
@@ -50,13 +51,14 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
 
-    // Dynamic checks remove karke explicitly fixed configuration alignment
-    implementation("androidx.compose.ui:ui:1.5.4")
-    implementation("androidx.compose.ui:ui-graphics:1.5.4")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
-    implementation("androidx.compose.material3:material3:1.1.2")
-    implementation("androidx.compose.foundation:foundation:1.5.4")
-    implementation("androidx.compose.animation:animation:1.5.4")
-    implementation("androidx.compose.material:material-icons-core:1.5.4")
-    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    // 🔥 FIX: Updated BOM version to match the 1.5.8 compiler extension perfectly
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.animation:animation")
+    implementation("androidx.compose.material:material-icons-extended")
 }
