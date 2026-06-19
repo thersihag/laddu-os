@@ -1,4 +1,4 @@
-// Path: app/build.gradle.kts
+cat << 'EOF' > app/build.gradle.kts
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -40,8 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        // 🔥 FIX: 1.5.8 extension standard matching Kotlin 1.9.22 aur dynamic Compose BOM ke sath stable hai
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
 }
 
@@ -51,7 +50,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
 
-    // 🔥 FIX: Updated BOM version to match the 1.5.8 compiler extension perfectly
     val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
     implementation(composeBom)
     implementation("androidx.compose.ui:ui")
@@ -62,3 +60,4 @@ dependencies {
     implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.material:material-icons-extended")
 }
+EOF
