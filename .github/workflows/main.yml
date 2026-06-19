@@ -21,15 +21,15 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant Execute Permission for Gradlew
+    # 1. Gradle wrapper ko execute karne ki permission dena zaroori hai
+    - name: Grant Execute Permission to Gradle Wrapper
       run: chmod +x gradlew
 
-    - name: Build Debug APK with Full Error Tracking
-      # 🔥 Added flags to force gradle to print the EXACT breaking line
-      run: ./gradlew assembleDebug --stacktrace --info
-      
+    # 2. Global 'gradle' ki jagah './gradlew' use karo
+    - name: Build Debug APK with Gradle Cloud
+      run: ./gradlew assembleDebug
+
     - name: Upload Generated APK to Cloud Storage
-      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: Laddu-OS-Launcher-Debug-APK
