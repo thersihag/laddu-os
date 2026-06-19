@@ -24,10 +24,12 @@ jobs:
     - name: Grant Execute Permission for Gradlew
       run: chmod +x gradlew
 
-    - name: Build Debug APK with Gradle Cloud Wrapper
-      run: ./gradlew assembleDebug
-
+    - name: Build Debug APK with Full Error Tracking
+      # 🔥 Added flags to force gradle to print the EXACT breaking line
+      run: ./gradlew assembleDebug --stacktrace --info
+      
     - name: Upload Generated APK to Cloud Storage
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: Laddu-OS-Launcher-Debug-APK
