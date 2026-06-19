@@ -22,15 +22,19 @@ fun ThemeSettingsSheet(viewModel: LauncherViewModel, currentTheme: LauncherTheme
         Column(modifier = Modifier.fillMaxWidth().padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Text("Laddu OS Customizer", fontSize = 18.sp, maxLines = 1)
             Spacer(Modifier.height(16.dp))
-            LauncherTheme.values().forEach { theme ->
-                Box(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp).height(50.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(if(theme == currentTheme) Color.LightGray else Color.Transparent)
-                        .clickable { viewModel.setTheme(theme) },
-                    contentAlignment = Alignment.Center
-                ) { Text(theme.name, fontSize = 14.sp) }
-            }
+            // ThemeSettingsSheet.kt ke andar loop ko aise clean update kardo:
+LauncherTheme.entries.forEach { theme ->
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp)
+            .height(50.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(if(theme == currentTheme) Color.LightGray else Color.Transparent)
+            .clickable { viewModel.setTheme(theme) },
+        contentAlignment = Alignment.Center
+    ) { Text(theme.name, fontSize = 14.sp) }
+}
         }
     }
 }
